@@ -19,13 +19,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: npm install
-        env:
-          CI: true
+      - name: Serverless Install
         run: |
-          npm ci
-      - name: deploy
+          npm install -g serverless
+      - name: Deploy Lambda
         run: |
-          zip -j deploy.zip ./*
-          aws lambda update-function-code --function-name=ghactions-demo --zip-file=fileb://deploy.zip
-          aws lambda publish-version --function-name ghactions-demo
+          chmod +x "${GITHUB_WORKSPACE}/.github/deploy.sh"
+          "${GITHUB_WORKSPACE}/.github/deploy.sh develop"

@@ -22,7 +22,7 @@ jobs:
       - name: Serverless Install
         run: |
           npm install -g serverless
-      - name: deploy
+      - name: Deploy Lambda
         run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/deploy.sh"
-          "${GITHUB_WORKSPACE}/.github/deploy.sh"
+          "${GITHUB_WORKSPACE}/.github/deploy.sh production"
